@@ -9,7 +9,7 @@ SELECT contract_id
   WHEN DATE_DIFF(contract_valid_from, contract_valid_to, month)<= 12 THEN 'up to 1 year'
   WHEN DATE_DIFF(contract_valid_from, contract_valid_to, month) > 12 THEN 'up to 2 years'
   WHEN DATE_DIFF(contract_valid_from, contract_valid_to, month)>= 24 THEN 'more than 2 years'
-  END AS contract_duration
+  END AS contract_duration  -- dopocitani delky trvani kontraktu
 ,registration_end_reason
 ,EXTRACT(year from contract_valid_from) AS  start_year_of_contract
 ,contract_status
@@ -17,7 +17,7 @@ SELECT contract_id
 FROM `genial-shore-455518-j8.L2.L2_contract`
 WHERE contract_valid_to > contract_valid_from 
   AND (contract_valid_from IS NOT NULL OR contract_valid_to IS NOT NULL)
-
+--vyrazeni neplatnych kontraktu
 ;
 
 --L3_invoice
@@ -26,13 +26,14 @@ SELECT invoice_id
 ,contract_id
 ,amount_w_vat
 ,return_w_vat
-,amount_w_vat - return_w_vat AS total_usd_paid
+,amount_w_vat - return_w_vat AS total_usd_paid --dopocitani celkove zaplacene castky
 ,paid_date
 FROM `genial-shore-455518-j8.L2.L2_invoice`
 
 
 ;
---L3_product_purchase
+--L3_product_purchase 
+-- Product_purchase pouzit místo tabulky product, jelikoz jsme jiz ve vrstve L1 napojili k teto tabulce tabulku product k doplneni informaci, je tedy ted dostacujici.
 CREATE OR REPLACE VIEW `genial-shore-455518-j8.L3.L3_product_purchase` AS
 SELECT product_purchase_id --PK
 ,contract_id
@@ -44,7 +45,7 @@ SELECT product_purchase_id --PK
 ,unit 
 ,flag_unlimited_product
 FROM `genial-shore-455518-j8.L2.L2_product_purchase`
-WHERE product_name IS NOT NULL
+WHERE product_name IS NOT NULL -- filtrace neplatnych produktu
 
 ;
 --L3_branch
