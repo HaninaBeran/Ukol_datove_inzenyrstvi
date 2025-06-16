@@ -56,7 +56,7 @@ SELECT
   ,CAST(id_package AS INT) AS package_id --FK
   ,id_invoice AS invoice_id --FK
   ,CAST(id_package_template AS INT) AS product_id -- FK
-  ,notlei AS price_wo_vat_usd --(notlei x 100000) AS price_wo_vat_usd
+  ,notlei AS price_wo_vat_usd AS price_wo_vat_usd
   ,tva AS vat_rate
   ,value AS price_w_vat_usd
   ,payed AS paid_w_vat_usd
