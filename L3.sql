@@ -33,7 +33,7 @@ FROM `genial-shore-455518-j8.L2.L2_invoice`
 
 ;
 --L3_product_purchase
-CREATE OR REPLACE VIEW `genial-shore-455518-j8.L3.L3_product` AS
+CREATE OR REPLACE VIEW `genial-shore-455518-j8.L3.L3_product_purchase` AS
 SELECT product_purchase_id --PK
 ,contract_id
 ,product_id --FK
