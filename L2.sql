@@ -26,10 +26,7 @@ SELECT
 , invoice_type
 , invoice_status_id
 , amount_w_vat
-, CASE 
-    WHEN amount_w_vat <= 0 THEN 0
-    WHEN amount_w_vat > 0 THEN amount_w_vat/1.2 
-    END AS amount_wo_vat
+, IF(amount_w_vat <= 0, 0, amount_w_vat/1.2) AS amount_wo_vat
 , return_w_vat
 , flag_invoice_issued
 , date_issue
